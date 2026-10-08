@@ -31,7 +31,8 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", bitter.variable, sourceSans.variable)}
     >
-      <body>
+      {/* Below 1440px the page scrolls sideways instead of squeezing. */}
+      <body className="min-w-[1440px]">
         <ThemeProvider>
           <TooltipProvider>{children}</TooltipProvider>
         </ThemeProvider>

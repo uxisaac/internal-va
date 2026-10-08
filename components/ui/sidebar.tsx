@@ -29,7 +29,9 @@ const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
-const SIDEBAR_WIDTH_ICON = "3rem"
+// Icon button (8) plus the group's p-2 on each side, plus the 1px right
+// border, so the icon is centred whatever the theme's --spacing is.
+const SIDEBAR_WIDTH_ICON = "calc(var(--spacing) * 12 + 1px)"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
 type SidebarContextProps = {
