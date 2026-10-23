@@ -50,7 +50,7 @@ const data = {
     },
     {
       title: "Guides",
-      url: "/catalogs",
+      url: "/guides",
       icon: <LibraryIcon />,
       items: [],
     },

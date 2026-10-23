@@ -107,7 +107,9 @@ export function CatalogGrid({ catalogs }: { catalogs: Catalog[] }) {
 
 function CatalogCard({ catalog }: { catalog: Catalog }) {
   return (
-    <Card className="gap-4 pt-0 [--card-spacing:--spacing(4)]">
+    // The "View guide" link stretches over the whole card (see its ::after),
+    // so the card is one click target with a single accessible link.
+    <Card className="relative gap-4 pt-0 transition-shadow [--card-spacing:--spacing(4)] hover:ring-foreground/25 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring">
       {/* Placeholder thumbnail until guides have preview images. */}
       <div className="relative flex aspect-video items-center justify-center bg-muted text-muted-foreground">
         <LibraryIcon className="size-10" />
@@ -140,8 +142,8 @@ function CatalogCard({ catalog }: { catalog: Catalog }) {
       <CardFooter className="flex-col items-stretch gap-4">
         <Separator />
         <a
-          href={`/catalogs/${catalog.id}`}
-          className="flex w-fit items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+          href={`/guides/${catalog.id}`}
+          className="flex w-fit items-center gap-1.5 text-sm font-medium text-primary outline-none group-hover/card:underline after:absolute after:inset-0 after:rounded-xl"
         >
           View guide
           <ArrowRightIcon className="size-4" />

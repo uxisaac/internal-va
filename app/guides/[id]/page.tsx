@@ -66,7 +66,7 @@ export default async function Page({
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/catalogs">Guides</BreadcrumbLink>
+                  <BreadcrumbLink href="/guides">Guides</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>

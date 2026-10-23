@@ -489,7 +489,7 @@ export const itemSlug = (title: string) =>
     .replace(/^-|-$/g, "")
 
 export const itemHref = (guide: Catalog, item: ChapterItem) =>
-  `/catalogs/${guide.id}/${itemSlug(item.title)}`
+  `/guides/${guide.id}/${itemSlug(item.title)}`
 
 // Finds a guide's item by slug, with its chapter and position.
 export function findItem(guide: Catalog, slug: string) {
