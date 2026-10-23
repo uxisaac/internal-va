@@ -49,8 +49,8 @@ const data = {
       items: [],
     },
     {
-      title: "Catalogs",
-      url: "#",
+      title: "Guides",
+      url: "/catalogs",
       icon: <LibraryIcon />,
       items: [],
     },
