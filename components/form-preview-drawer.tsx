@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/sheet"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { VaForm } from "@/lib/va-forms"
+import { cn } from "@/lib/utils"
 
 // A "VA Form …" link that opens a drawer with the form's details and a
 // placeholder PDF preview. Swap the preview for an embedded PDF once the
@@ -23,9 +24,13 @@ import type { VaForm } from "@/lib/va-forms"
 export function FormPreviewDrawer({
   form,
   stepLabel,
+  className,
 }: {
   form: VaForm
-  stepLabel: string
+  /** Where the drawer was opened from, e.g. a step; shown under the title. */
+  stepLabel?: string
+  /** Extra classes for the "VA Form …" link. */
+  className?: string
 }) {
   const details: [string, string][] = [
     ["Kind", form.kind],
@@ -44,7 +49,7 @@ export function FormPreviewDrawer({
           <Button
             variant="link"
             size="xs"
-            className="h-auto px-0 text-primary"
+            className={cn("h-auto px-0 text-primary", className)}
           />
         }
       >
@@ -63,9 +68,11 @@ export function FormPreviewDrawer({
             <Badge variant="secondary">{form.kind}</Badge>
           </div>
           <SheetDescription>{form.title}</SheetDescription>
-          <p className="text-xs text-muted-foreground">
-            Opened from {stepLabel}
-          </p>
+          {stepLabel && (
+            <p className="text-xs text-muted-foreground">
+              Opened from {stepLabel}
+            </p>
+          )}
         </SheetHeader>
 
         <div className="flex flex-col gap-6 px-6">

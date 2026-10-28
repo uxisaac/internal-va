@@ -1,4 +1,4 @@
-// Placeholder catalogs until real content exists.
+// Library reference entries. Placeholder content until real content exists.
 export type Outcome = {
   title: string
   description: string
@@ -31,9 +31,9 @@ export type Catalog = {
 export const catalogs: Catalog[] = [
   {
     id: "forms",
-    title: "VA Forms Library",
+    title: "All Forms",
     description:
-      "Each grant activity, who carries it out and what has to be true, with the process steps behind it.",
+      "Every VA form used in the grant process. Search by form number or name.",
     topic: "Forms",
     items: 42,
     updated: "Updated 2 days ago",
@@ -101,6 +101,82 @@ export const catalogs: Catalog[] = [
           { title: "Final Field Review (26-1858d)", minutes: 8 },
           { title: "Lien release and holdback", minutes: 5 },
           { title: "Final Accounting", minutes: 6 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "roles",
+    title: "Roles and Actors",
+    description:
+      "Who does what: Agents, Coordinators, AAO, CI, builders and Veterans, mapped to the steps and decisions they own.",
+    topic: "People",
+    items: 18,
+    updated: "Updated yesterday",
+    owner: "Program office",
+    outcomes: [
+      {
+        title: "Know who owns each step",
+        description:
+          "See which role is responsible, consulted or informed at every step.",
+      },
+      {
+        title: "Understand handoffs",
+        description:
+          "Follow how work moves between Agents, Coordinators, AAO and CIs.",
+      },
+      {
+        title: "Work with builders",
+        description:
+          "Know what to expect from builders at bids, contract and construction.",
+      },
+      {
+        title: "Support Veterans and families",
+        description:
+          "Understand when the Veteran, POA or next of kin needs to act.",
+      },
+      {
+        title: "Escalate the right way",
+        description:
+          "Know who to contact when a step is blocked or a decision is disputed.",
+      },
+      {
+        title: "Cover for a colleague",
+        description:
+          "Pick up another role's work without missing required steps.",
+      },
+    ],
+    chapters: [
+      {
+        title: "Roles at a glance",
+        items: [
+          { title: "The core roles", minutes: 5 },
+          { title: "Who decides what", minutes: 6 },
+          { title: "Reading the responsibility map", minutes: 4 },
+        ],
+      },
+      {
+        title: "VA staff",
+        items: [
+          { title: "Agents", minutes: 7 },
+          { title: "Coordinators", minutes: 6 },
+          { title: "AAO and CI", minutes: 7 },
+        ],
+      },
+      {
+        title: "Outside the VA",
+        items: [
+          { title: "Veterans, POA and family", minutes: 6 },
+          { title: "Builders", minutes: 6 },
+          { title: "Next of kin", minutes: 4 },
+        ],
+      },
+      {
+        title: "Working together",
+        items: [
+          { title: "Handoffs between roles", minutes: 7 },
+          { title: "Escalation paths", minutes: 5 },
+          { title: "Covering for a colleague", minutes: 4 },
         ],
       },
     ],
@@ -256,82 +332,6 @@ export const catalogs: Catalog[] = [
     ],
   },
   {
-    id: "roles",
-    title: "Roles and Actors",
-    description:
-      "Who does what: Agents, Coordinators, AAO, CI, builders and Veterans, mapped to the steps and decisions they own.",
-    topic: "People",
-    items: 18,
-    updated: "Updated yesterday",
-    owner: "Program office",
-    outcomes: [
-      {
-        title: "Know who owns each step",
-        description:
-          "See which role is responsible, consulted or informed at every step.",
-      },
-      {
-        title: "Understand handoffs",
-        description:
-          "Follow how work moves between Agents, Coordinators, AAO and CIs.",
-      },
-      {
-        title: "Work with builders",
-        description:
-          "Know what to expect from builders at bids, contract and construction.",
-      },
-      {
-        title: "Support Veterans and families",
-        description:
-          "Understand when the Veteran, POA or next of kin needs to act.",
-      },
-      {
-        title: "Escalate the right way",
-        description:
-          "Know who to contact when a step is blocked or a decision is disputed.",
-      },
-      {
-        title: "Cover for a colleague",
-        description:
-          "Pick up another role's work without missing required steps.",
-      },
-    ],
-    chapters: [
-      {
-        title: "Roles at a glance",
-        items: [
-          { title: "The core roles", minutes: 5 },
-          { title: "Who decides what", minutes: 6 },
-          { title: "Reading the responsibility map", minutes: 4 },
-        ],
-      },
-      {
-        title: "VA staff",
-        items: [
-          { title: "Agents", minutes: 7 },
-          { title: "Coordinators", minutes: 6 },
-          { title: "AAO and CI", minutes: 7 },
-        ],
-      },
-      {
-        title: "Outside the VA",
-        items: [
-          { title: "Veterans, POA and family", minutes: 6 },
-          { title: "Builders", minutes: 6 },
-          { title: "Next of kin", minutes: 4 },
-        ],
-      },
-      {
-        title: "Working together",
-        items: [
-          { title: "Handoffs between roles", minutes: 7 },
-          { title: "Escalation paths", minutes: 5 },
-          { title: "Covering for a colleague", minutes: 4 },
-        ],
-      },
-    ],
-  },
-  {
     id: "letters",
     title: "Letters and Templates",
     description:
@@ -405,120 +405,7 @@ export const catalogs: Catalog[] = [
       },
     ],
   },
-  {
-    id: "steps",
-    title: "Process Steps",
-    description:
-      "Every step of the legacy process, grouped by phase, with the forms, roles and systems each one uses.",
-    topic: "Process",
-    items: 44,
-    updated: "Updated today",
-    owner: "Coordinators",
-    outcomes: [],
-    chapters: [],
-  },
-  {
-    id: "training",
-    title: "Training Material",
-    description:
-      "Chapter decks and guides behind the process map, with the notes, open questions and conflicts raised from each one.",
-    topic: "Training",
-    items: 9,
-    updated: "Updated today",
-    owner: "Training team",
-    outcomes: [
-      {
-        title: "Find the source material",
-        description:
-          "Locate the chapter decks and guides behind each step of the process map.",
-      },
-      {
-        title: "Read the notes in context",
-        description: "See training notes next to the step they describe.",
-      },
-      {
-        title: "Answer open questions",
-        description:
-          "Understand what each open question is asking and who can answer it.",
-      },
-      {
-        title: "Resolve conflicts",
-        description:
-          "Compare conflicting sources and record the agreed answer.",
-      },
-      {
-        title: "Suggest corrections",
-        description:
-          "Leave a note on a step when the training material is wrong or out of date.",
-      },
-      {
-        title: "Stay up to date",
-        description: "See what changed in each new round of training material.",
-      },
-    ],
-    chapters: [
-      {
-        title: "About the training material",
-        items: [
-          { title: "Where the material comes from", minutes: 5 },
-          { title: "How it maps to steps", minutes: 4 },
-          { title: "Reading notes in context", minutes: 4 },
-        ],
-      },
-      {
-        title: "Chapter decks",
-        items: [
-          { title: "Chapter 1: Application and eligibility", minutes: 9 },
-          { title: "Chapter 2: Interview and feasibility", minutes: 9 },
-          { title: "Chapter 3: Construction and close-out", minutes: 9 },
-        ],
-      },
-      {
-        title: "Open questions",
-        items: [
-          { title: "How questions are raised", minutes: 5 },
-          { title: "Answering a question", minutes: 6 },
-          { title: "Tracking answers", minutes: 4 },
-        ],
-      },
-      {
-        title: "Keeping it current",
-        items: [
-          { title: "Resolving conflicts", minutes: 7 },
-          { title: "Suggesting corrections", minutes: 5 },
-          { title: "What changed this round", minutes: 6 },
-        ],
-      },
-    ],
-  },
 ]
 
-// Reference entries shown under Library instead of Guides.
-const LIBRARY_IDS = ["forms", "roles", "systems", "screens", "letters"]
-
-export const guides = catalogs.filter(
-  (catalog) => !LIBRARY_IDS.includes(catalog.id)
-)
-
-export const library = catalogs.filter((catalog) =>
-  LIBRARY_IDS.includes(catalog.id)
-)
-
-// URL-safe id for a chapter item, from its title.
-export const itemSlug = (title: string) =>
-  title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-
-export const itemHref = (guide: Catalog, item: ChapterItem) =>
-  `/guides/${guide.id}/${itemSlug(item.title)}`
-
-// Finds a guide's item by slug, with its chapter and position.
-export function findItem(guide: Catalog, slug: string) {
-  for (const [chapterIndex, chapter] of guide.chapters.entries()) {
-    const item = chapter.items.find((entry) => itemSlug(entry.title) === slug)
-    if (item) return { chapter, chapterIndex, item }
-  }
-  return undefined
-}
+// Reference entries shown under Library.
+export const library = catalogs

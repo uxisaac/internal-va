@@ -4,7 +4,8 @@ import * as React from "react"
 import Image from "next/image"
 
 import { NavMain } from "@/components/nav-main"
-import { guides, library } from "@/lib/catalogs"
+import { library } from "@/lib/catalogs"
+import { categories } from "@/lib/guides"
 import {
   Sidebar,
   SidebarContent,
@@ -50,15 +51,22 @@ const data = {
       icon: <SparklesIcon />,
       items: [],
     },
+  ],
+  // Listed under "Training Material".
+  navTraining: [
     {
       title: "Guides",
       url: "#",
       icon: <LibraryIcon />,
-      // One link per guide, so new guides appear here automatically.
-      items: guides.map((guide) => ({
-        title: guide.title,
-        url: `/guides/${guide.id}`,
-      })),
+      // Process Breakdown first, then one link per category, so new
+      // categories appear here automatically.
+      items: [
+        { title: "Process Breakdown", url: "/guides/process-breakdown" },
+        ...categories.map((category) => ({
+          title: category.title,
+          url: `/guides/${category.id}`,
+        })),
+      ],
     },
     {
       title: "Library",
@@ -111,6 +119,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
+        <NavMain label="Training Material" items={data.navTraining} />
         <NavMain label="More" items={data.navMore} />
       </SidebarContent>
       <SidebarRail />

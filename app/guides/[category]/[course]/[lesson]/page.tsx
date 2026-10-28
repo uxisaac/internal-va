@@ -26,14 +26,23 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { guides, findItem, itemHref, itemSlug } from "@/lib/catalogs"
+import {
+  categories,
+  findCategory,
+  findCourse,
+  findLesson,
+  lessonHref,
+  lessonSlug,
+  lessonsOf,
+} from "@/lib/guides"
 
 export function generateStaticParams() {
-  return guides.flatMap((guide) =>
-    guide.chapters.flatMap((chapter) =>
-      chapter.items.map((item) => ({
-        id: guide.id,
-        item: itemSlug(item.title),
+  return categories.flatMap((category) =>
+    category.courses.flatMap((course) =>
+      lessonsOf(course).map((lesson) => ({
+        category: category.id,
+        course: course.id,
+        lesson: lessonSlug(lesson.title),
       }))
     )
   )
@@ -42,16 +51,17 @@ export function generateStaticParams() {
 export default async function Page({
   params,
 }: {
-  params: Promise<{ id: string; item: string }>
+  params: Promise<{ category: string; course: string; lesson: string }>
 }) {
-  const { id, item: slug } = await params
-  const guide = guides.find((entry) => entry.id === id)
-  const found = guide && findItem(guide, slug)
-  if (!guide || !found) notFound()
-  const { chapter, chapterIndex, item } = found
+  const route = await params
+  const category = findCategory(route.category)
+  const course = category && findCourse(category, route.course)
+  const found = course && findLesson(course, route.lesson)
+  if (!category || !course || !found) notFound()
+  const { chapter, chapterIndex, lesson: item } = found
 
-  // Previous and next items across the whole guide.
-  const items = guide.chapters.flatMap((entry) => entry.items)
+  // Previous and next lessons across the whole course.
+  const items = lessonsOf(course)
   const position = items.indexOf(item)
   const previous = items[position - 1]
   const next = items[position + 1]
@@ -72,8 +82,14 @@ export default async function Page({
                 <BreadcrumbItem>Guides</BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/guides/${guide.id}`}>
-                    {guide.title}
+                  <BreadcrumbLink href={`/guides/${category.id}`}>
+                    {category.title}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/guides/${category.id}/${course.id}`}>
+                    {course.title}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -106,10 +122,10 @@ export default async function Page({
               </Badge>
               <Badge variant="secondary" className="bg-card">
                 <BookOpenIcon data-icon="inline-start" />
-                {guide.title}
+                {course.title}
               </Badge>
               <Badge className="bg-primary/10 text-primary">
-                {guide.topic}
+                {category.title}
               </Badge>
             </div>
           </section>
@@ -135,7 +151,7 @@ export default async function Page({
               </h2>
               <p className="leading-relaxed">
                 {item.title} is part of {chapter.title.toLowerCase()} in the{" "}
-                {guide.title} guide. This placeholder will describe what the
+                {course.title} course. This placeholder will describe what the
                 video covers, who it&apos;s for, and what to do before moving on
                 to the next item.
               </p>
@@ -146,14 +162,14 @@ export default async function Page({
             </section>
 
             <nav
-              aria-label="Guide items"
+              aria-label="Course lessons"
               className="flex items-center justify-between gap-4 border-t pt-6"
             >
               {previous ? (
                 <Button
                   variant="outline"
                   nativeButton={false}
-                  render={<a href={itemHref(guide, previous)} />}
+                  render={<a href={lessonHref(category, course, previous)} />}
                 >
                   <ArrowLeftIcon data-icon="inline-start" />
                   {previous.title}
@@ -165,7 +181,7 @@ export default async function Page({
                 <Button
                   variant="outline"
                   nativeButton={false}
-                  render={<a href={itemHref(guide, next)} />}
+                  render={<a href={lessonHref(category, course, next)} />}
                 >
                   {next.title}
                   <ArrowRightIcon data-icon="inline-end" />

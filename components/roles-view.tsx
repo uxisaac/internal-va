@@ -38,7 +38,7 @@ export function RolesView({
   m26Roles: M26Role[]
 }) {
   const [query, setQuery] = useState("")
-  const [view, setView] = useState<View>("cards")
+  const [view, setView] = useState<View>("table")
 
   const search = query.trim().toLowerCase()
   const visiblePersonas = personas.filter((persona) =>
@@ -72,13 +72,13 @@ export function RolesView({
         </div>
         <Tabs value={view} onValueChange={(value) => setView(value as View)}>
           <TabsList aria-label="View">
-            <TabsTrigger value="cards">
-              <LayoutGridIcon />
-              Cards
-            </TabsTrigger>
             <TabsTrigger value="table">
               <TableIcon />
               Table
+            </TabsTrigger>
+            <TabsTrigger value="cards">
+              <LayoutGridIcon />
+              Cards
             </TabsTrigger>
           </TabsList>
         </Tabs>
@@ -158,7 +158,7 @@ function SectionHeading({
   )
 }
 
-// Same look as the step cards on the VA Forms Library page.
+// Same look as the step cards on the Process Breakdown page.
 const cardClass =
   "flex flex-col gap-3 rounded-lg border bg-card p-3 text-card-foreground shadow-xs"
 

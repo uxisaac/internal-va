@@ -2,7 +2,7 @@ import { InboxIcon } from "lucide-react"
 import { notFound } from "next/navigation"
 
 import { AppSidebar } from "@/components/app-sidebar"
-import { DocumentsView } from "@/components/documents-view"
+import { FormsIndex } from "@/components/forms-index"
 import { ModeToggle } from "@/components/mode-toggle"
 import { RolesView } from "@/components/roles-view"
 import { UserMenu } from "@/components/user-menu"
@@ -28,8 +28,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { library } from "@/lib/catalogs"
-import { grantSections } from "@/lib/grant-process"
-import { legacyProcessFlow } from "@/lib/legacy-process-flow"
 import { m26Roles, personas } from "@/lib/personas"
 
 export function generateStaticParams() {
@@ -72,7 +70,7 @@ export default async function Page({
           </div>
         </header>
         {entry.id === "forms" ? (
-          // VA Forms Library shows the process documents view.
+          // All Forms is a searchable index of every form.
           <div className="flex flex-1 flex-col">
             <section className="flex flex-col gap-1 bg-base-secondary px-4 pt-4 pb-4 text-base-secondary-foreground">
               <div className="flex items-center gap-3">
@@ -91,10 +89,7 @@ export default async function Page({
                 {entry.description}
               </p>
             </section>
-            <DocumentsView
-              phases={legacyProcessFlow}
-              grantSections={grantSections}
-            />
+            <FormsIndex />
           </div>
         ) : (
           <div className="flex flex-1 flex-col">
