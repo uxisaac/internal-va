@@ -1,6 +1,6 @@
 "use client"
 
-import { FileTextIcon } from "lucide-react"
+import { ExternalLinkIcon, FileTextIcon, PlayIcon } from "lucide-react"
 import { useState } from "react"
 
 import { Badge } from "@/components/ui/badge"
@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator"
 import { SheetDescription, SheetTitle } from "@/components/ui/sheet"
 import { Textarea } from "@/components/ui/textarea"
 import type { StepDetail } from "@/lib/step-details"
+import type { VaForm } from "@/lib/va-forms"
 
 const NOTE_KINDS = ["Question", "Correction", "Confirmation", "Addition"]
 
@@ -17,9 +18,18 @@ type Note = { kind: string; text: string; author: string }
 
 export function StepDetailPanel({
   detail,
+  showVideo = false,
+  showOpenQuestions = true,
+  forms = [],
   ref,
 }: {
   detail: StepDetail
+  /** Adds a video placeholder section under the summary. */
+  showVideo?: boolean
+  /** Shows the step's open questions under "Needs an answer". */
+  showOpenQuestions?: boolean
+  /** The step's VA forms; those with a PDF are listed as links. */
+  forms?: VaForm[]
   ref?: React.Ref<HTMLDivElement>
 }) {
   return (
@@ -41,7 +51,21 @@ export function StepDetailPanel({
         </SheetDescription>
       </div>
 
-      {detail.openQuestions.length > 0 && (
+      {showVideo && (
+        <Section title="Video">
+          {/* Placeholder until step videos are uploaded. */}
+          <div className="flex aspect-video flex-col items-center justify-center gap-3 rounded-xl border bg-muted text-muted-foreground">
+            <span className="flex size-14 items-center justify-center rounded-full bg-card shadow-sm">
+              <PlayIcon aria-hidden className="ml-1 size-6 text-primary" />
+            </span>
+            <span className="text-sm">Video coming soon</span>
+          </div>
+        </Section>
+      )}
+
+      <FormPdfs forms={forms} />
+
+      {showOpenQuestions && detail.openQuestions.length > 0 && (
         <Section title="Needs an answer">
           {detail.openQuestions.map((question) => (
             <div
@@ -100,6 +124,44 @@ export function StepDetailPanel({
 
       <FeedbackForm detail={detail} />
     </div>
+  )
+}
+
+// The step's form PDFs, each opening in a new tab. Forms without a file
+// are left out.
+function FormPdfs({ forms }: { forms: VaForm[] }) {
+  const withPdf = forms.filter((form) => form.file)
+  if (withPdf.length === 0) return null
+  return (
+    <Section title="PDF files">
+      <ul className="flex flex-col divide-y rounded-lg border">
+        {withPdf.map((form) => (
+          <li key={form.id}>
+            <a
+              href={`/${form.file}`}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-3 p-3 transition-colors outline-none hover:bg-muted/50 focus-visible:bg-muted/50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
+            >
+              <FileTextIcon
+                aria-hidden
+                className="size-4 shrink-0 text-muted-foreground"
+              />
+              <span className="flex min-w-0 flex-1 flex-col">
+                <span className="font-medium">VA Form {form.number}</span>
+                <span className="truncate text-xs text-muted-foreground">
+                  {form.title}
+                </span>
+              </span>
+              <ExternalLinkIcon
+                aria-hidden
+                className="size-4 shrink-0 text-muted-foreground"
+              />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Section>
   )
 }
 

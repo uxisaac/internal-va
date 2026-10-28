@@ -4,6 +4,7 @@ import * as React from "react"
 import Image from "next/image"
 
 import { NavMain } from "@/components/nav-main"
+import { guides, library } from "@/lib/catalogs"
 import {
   Sidebar,
   SidebarContent,
@@ -11,6 +12,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import {
+  BookMarkedIcon,
   BookOpenIcon,
   FileTextIcon,
   LibraryIcon,
@@ -50,10 +52,26 @@ const data = {
     },
     {
       title: "Guides",
-      url: "/guides",
+      url: "#",
       icon: <LibraryIcon />,
-      items: [],
+      // One link per guide, so new guides appear here automatically.
+      items: guides.map((guide) => ({
+        title: guide.title,
+        url: `/guides/${guide.id}`,
+      })),
     },
+    {
+      title: "Library",
+      url: "#",
+      icon: <BookMarkedIcon />,
+      items: library.map((entry) => ({
+        title: entry.title,
+        url: `/library/${entry.id}`,
+      })),
+    },
+  ],
+  // Listed under "More".
+  navMore: [
     {
       title: "Sahsha Knowledge",
       url: "#",
@@ -93,6 +111,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
+        <NavMain label="More" items={data.navMore} />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

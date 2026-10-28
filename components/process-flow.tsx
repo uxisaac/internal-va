@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/popover"
 import { PhaseTimeline } from "@/components/phase-timeline"
 import { StepDetailPanel } from "@/components/step-detail-panel"
-import { StepTags } from "@/components/step-tags"
+import { StepCard } from "@/components/step-card"
 import {
   Sheet,
   SheetContent,
@@ -484,34 +484,5 @@ function StepNodeView({ data }: NodeProps<StepNode>) {
         <StepCard step={data.step} dashed={data.exception} className="h-full" />
       </button>
     </>
-  )
-}
-
-function StepCard({
-  step,
-  dashed,
-  className,
-}: {
-  step: FlowStep
-  dashed?: boolean
-  className?: string
-}) {
-  return (
-    <div
-      className={cn(
-        "flex flex-col gap-1 rounded-lg border bg-card p-3 text-card-foreground shadow-xs",
-        dashed && "border-dashed",
-        // Decision points carry a red rule on the left edge.
-        step.decisionPoint &&
-          "relative overflow-hidden pl-4 before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-destructive",
-        className
-      )}
-    >
-      <span className="text-xs font-semibold text-muted-foreground">
-        {step.id}
-      </span>
-      <p className="text-base leading-snug font-semibold">{step.title}</p>
-      <StepTags step={step} className="mt-1" />
-    </div>
   )
 }

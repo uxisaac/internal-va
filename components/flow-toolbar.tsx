@@ -29,6 +29,7 @@ const FLAG_OPTIONS: Option[] = [
   { value: "needs-answer", label: "Needs an answer" },
   { value: "conflict", label: "Conflict" },
   { value: "new", label: "New additions" },
+  { value: "screens", label: "With screenshots" },
 ]
 
 const LAYER_OPTIONS: Option[] = [{ value: "all", label: "The whole map" }]
@@ -43,10 +44,13 @@ export function FlowToolbar({
   phases,
   filters,
   onFiltersChange,
+  showSummary = true,
 }: {
   phases: FlowPhase[]
   filters: FlowFilters
   onFiltersChange: (filters: FlowFilters) => void
+  /** The KPI summary card above the filters. */
+  showSummary?: boolean
 }) {
   const steps = phases.flatMap((phase) => phase.steps)
   const additions = steps.reduce((sum, step) => sum + (step.newItems ?? 0), 0)
@@ -63,43 +67,45 @@ export function FlowToolbar({
 
   return (
     <div className="flex flex-col gap-4">
-      <Card className="mb-4 grid grid-cols-2 gap-0 py-0 lg:grid-cols-4">
-        <StatItem
-          label="New additions"
-          icon={<PlusIcon />}
-          value={additions}
-          caption={`across ${stepsWithAdditions} steps`}
-          active={filters.flag === "new"}
-          onClick={() => toggleFlag("new")}
-        />
-        <StatItem
-          className="border-l"
-          label="Conflicts"
-          icon={<TriangleAlertIcon />}
-          tone="destructive"
-          value={conflicts}
-          caption={`on ${stepsWithConflicts} steps`}
-          active={filters.flag === "conflict"}
-          onClick={() => toggleFlag("conflict")}
-        />
-        <StatItem
-          className="lg:border-l"
-          label="Needs an answer"
-          icon={<CircleHelpIcon />}
-          tone="primary"
-          value={needsAnswer}
-          caption="open questions"
-          active={filters.flag === "needs-answer"}
-          onClick={() => toggleFlag("needs-answer")}
-        />
-        <StatItem
-          className="border-l"
-          label="Steps updated"
-          icon={<ListChecksIcon />}
-          value={`${stepsWithAdditions} of ${steps.length}`}
-          caption="have new content"
-        />
-      </Card>
+      {showSummary && (
+        <Card className="mb-4 grid grid-cols-2 gap-0 py-0 lg:grid-cols-4">
+          <StatItem
+            label="New additions"
+            icon={<PlusIcon />}
+            value={additions}
+            caption={`across ${stepsWithAdditions} steps`}
+            active={filters.flag === "new"}
+            onClick={() => toggleFlag("new")}
+          />
+          <StatItem
+            className="border-l"
+            label="Conflicts"
+            icon={<TriangleAlertIcon />}
+            tone="destructive"
+            value={conflicts}
+            caption={`on ${stepsWithConflicts} steps`}
+            active={filters.flag === "conflict"}
+            onClick={() => toggleFlag("conflict")}
+          />
+          <StatItem
+            className="lg:border-l"
+            label="Needs an answer"
+            icon={<CircleHelpIcon />}
+            tone="primary"
+            value={needsAnswer}
+            caption="open questions"
+            active={filters.flag === "needs-answer"}
+            onClick={() => toggleFlag("needs-answer")}
+          />
+          <StatItem
+            className="border-l"
+            label="Steps updated"
+            icon={<ListChecksIcon />}
+            value={`${stepsWithAdditions} of ${steps.length}`}
+            caption="have new content"
+          />
+        </Card>
+      )}
 
       <div className="flex flex-wrap items-end gap-4">
         <FilterSelect

@@ -33,7 +33,7 @@ export const catalogs: Catalog[] = [
     id: "forms",
     title: "VA Forms Library",
     description:
-      "Every form used across the legacy process, from the 26-4555 application to the 26-1858d Final Field Review, with when each one is needed.",
+      "Each grant activity, who carries it out and what has to be true, with the process steps behind it.",
     topic: "Forms",
     items: 42,
     updated: "Updated 2 days ago",
@@ -406,6 +406,18 @@ export const catalogs: Catalog[] = [
     ],
   },
   {
+    id: "steps",
+    title: "Process Steps",
+    description:
+      "Every step of the legacy process, grouped by phase, with the forms, roles and systems each one uses.",
+    topic: "Process",
+    items: 44,
+    updated: "Updated today",
+    owner: "Coordinators",
+    outcomes: [],
+    chapters: [],
+  },
+  {
     id: "training",
     title: "Training Material",
     description:
@@ -480,6 +492,17 @@ export const catalogs: Catalog[] = [
     ],
   },
 ]
+
+// Reference entries shown under Library instead of Guides.
+const LIBRARY_IDS = ["forms", "roles", "systems", "screens", "letters"]
+
+export const guides = catalogs.filter(
+  (catalog) => !LIBRARY_IDS.includes(catalog.id)
+)
+
+export const library = catalogs.filter((catalog) =>
+  LIBRARY_IDS.includes(catalog.id)
+)
 
 // URL-safe id for a chapter item, from its title.
 export const itemSlug = (title: string) =>

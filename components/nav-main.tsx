@@ -11,6 +11,7 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
+  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
@@ -19,9 +20,15 @@ import {
 } from "@/components/ui/sidebar"
 import { ChevronRightIcon } from "lucide-react"
 
+// True on the page itself or any page below it.
+const isWithin = (pathname: string, url: string) =>
+  pathname === url || pathname.startsWith(`${url}/`)
+
 export function NavMain({
+  label = "Platform",
   items,
 }: {
+  label?: string
   items: {
     title: string
     url: string
@@ -37,18 +44,55 @@ export function NavMain({
 
   return (
     <SidebarGroup className="font-serif">
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>{label}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) =>
-          // A linked item without sub-items is a plain link, not a group.
+          // A linked group: the label opens its page, the chevron toggles the
+          // sub-links.
+          item.items?.length && item.url !== "#" ? (
+            <Collapsible
+              key={item.title}
+              defaultOpen={item.isActive || isWithin(pathname, item.url)}
+              className="group/collapsible"
+              render={<SidebarMenuItem />}
+            >
+              <SidebarMenuButton
+                tooltip={item.title}
+                render={<a href={item.url} />}
+                isActive={pathname === item.url}
+              >
+                {item.icon}
+                <span>{item.title}</span>
+              </SidebarMenuButton>
+              <CollapsibleTrigger
+                aria-label={`Show ${item.title} links`}
+                // right-2 lines the chevron up with the other groups' chevrons.
+                render={<SidebarMenuAction className="right-2" />}
+              >
+                <ChevronRightIcon className="transition-transform duration-200 group-data-open/collapsible:rotate-90" />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <SidebarMenuSub>
+                  {item.items.map((subItem) => (
+                    <SidebarMenuSubItem key={subItem.title}>
+                      <SidebarMenuSubButton
+                        render={<a href={subItem.url} />}
+                        isActive={isWithin(pathname, subItem.url)}
+                      >
+                        <span>{subItem.title}</span>
+                      </SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+                  ))}
+                </SidebarMenuSub>
+              </CollapsibleContent>
+            </Collapsible>
+          ) : // A linked item without sub-items is a plain link, not a group.
           !item.items?.length && item.url !== "#" ? (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 tooltip={item.title}
                 render={<a href={item.url} />}
-                isActive={
-                  pathname === item.url || pathname.startsWith(`${item.url}/`)
-                }
+                isActive={isWithin(pathname, item.url)}
               >
                 {item.icon}
                 <span>{item.title}</span>
@@ -57,7 +101,10 @@ export function NavMain({
           ) : (
             <Collapsible
               key={item.title}
-              defaultOpen={item.isActive}
+              defaultOpen={
+                item.isActive ||
+                item.items?.some((subItem) => isWithin(pathname, subItem.url))
+              }
               className="group/collapsible"
               render={<SidebarMenuItem />}
             >
@@ -74,7 +121,7 @@ export function NavMain({
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton
                         render={<a href={subItem.url} />}
-                        isActive={pathname === subItem.url}
+                        isActive={isWithin(pathname, subItem.url)}
                       >
                         <span>{subItem.title}</span>
                       </SidebarMenuSubButton>

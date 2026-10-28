@@ -26,10 +26,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { catalogs, findItem, itemHref, itemSlug } from "@/lib/catalogs"
+import { guides, findItem, itemHref, itemSlug } from "@/lib/catalogs"
 
 export function generateStaticParams() {
-  return catalogs.flatMap((guide) =>
+  return guides.flatMap((guide) =>
     guide.chapters.flatMap((chapter) =>
       chapter.items.map((item) => ({
         id: guide.id,
@@ -45,7 +45,7 @@ export default async function Page({
   params: Promise<{ id: string; item: string }>
 }) {
   const { id, item: slug } = await params
-  const guide = catalogs.find((catalog) => catalog.id === id)
+  const guide = guides.find((entry) => entry.id === id)
   const found = guide && findItem(guide, slug)
   if (!guide || !found) notFound()
   const { chapter, chapterIndex, item } = found
@@ -69,9 +69,7 @@ export default async function Page({
             />
             <Breadcrumb className="min-w-0">
               <BreadcrumbList className="flex-nowrap">
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/guides">Guides</BreadcrumbLink>
-                </BreadcrumbItem>
+                <BreadcrumbItem>Guides</BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink href={`/guides/${guide.id}`}>
