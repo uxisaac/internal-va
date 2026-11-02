@@ -17,6 +17,7 @@ import {
   BookOpenIcon,
   FileTextIcon,
   LibraryIcon,
+  ListOrderedIcon,
   PaletteIcon,
   SparklesIcon,
   WorkflowIcon,
@@ -52,21 +53,22 @@ const data = {
       items: [],
     },
   ],
-  // Listed under "Training Material".
+  // Listed under "Guides & Training".
   navTraining: [
     {
-      title: "Guides",
+      title: "Process Breakdown",
+      url: "/guides/process-breakdown",
+      icon: <ListOrderedIcon />,
+    },
+    {
+      title: "Training Material",
       url: "#",
       icon: <LibraryIcon />,
-      // Process Breakdown first, then one link per category, so new
-      // categories appear here automatically.
-      items: [
-        { title: "Process Breakdown", url: "/guides/process-breakdown" },
-        ...categories.map((category) => ({
-          title: category.title,
-          url: `/guides/${category.id}`,
-        })),
-      ],
+      // One link per category, so new categories appear here automatically.
+      items: categories.map((category) => ({
+        title: category.title,
+        url: `/guides/${category.id}`,
+      })),
     },
     {
       title: "Library",
@@ -119,7 +121,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavMain label="Training Material" items={data.navTraining} />
+        <NavMain label="Guides & Training" items={data.navTraining} />
         <NavMain label="More" items={data.navMore} />
       </SidebarContent>
       <SidebarRail />

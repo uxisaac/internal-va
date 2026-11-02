@@ -32,7 +32,7 @@ export default function Page() {
             />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem>Guides</BreadcrumbItem>
+                <BreadcrumbItem>Training Material</BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbPage>Process Breakdown</BreadcrumbPage>

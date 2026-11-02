@@ -75,7 +75,7 @@ export default async function Page({
             />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem>Guides</BreadcrumbItem>
+                <BreadcrumbItem>Training Material</BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink href={`/guides/${category.id}`}>

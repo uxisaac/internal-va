@@ -79,7 +79,7 @@ export default async function Page({
             />
             <Breadcrumb className="min-w-0">
               <BreadcrumbList className="flex-nowrap">
-                <BreadcrumbItem>Guides</BreadcrumbItem>
+                <BreadcrumbItem>Training Material</BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink href={`/guides/${category.id}`}>
