@@ -1,20 +1,12 @@
 "use client"
 
 import { ExternalLinkIcon, FileTextIcon, PlayIcon } from "lucide-react"
-import { useState } from "react"
 
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
 import { Separator } from "@/components/ui/separator"
 import { SheetDescription, SheetTitle } from "@/components/ui/sheet"
-import { Textarea } from "@/components/ui/textarea"
 import type { StepDetail } from "@/lib/step-details"
 import type { VaForm } from "@/lib/va-forms"
-
-const NOTE_KINDS = ["Question", "Correction", "Confirmation", "Addition"]
-
-type Note = { kind: string; text: string; author: string }
 
 export function StepDetailPanel({
   detail,
@@ -120,9 +112,6 @@ export function StepDetailPanel({
           <p className="text-muted-foreground">Guide: {detail.guide}</p>
         </>
       )}
-      <Separator />
-
-      <FeedbackForm detail={detail} />
     </div>
   )
 }
@@ -201,86 +190,5 @@ function TagList({
         </Badge>
       ))}
     </div>
-  )
-}
-
-// Notes are kept in local state only until there is a backend.
-function FeedbackForm({ detail }: { detail: StepDetail }) {
-  const [notes, setNotes] = useState<Note[]>([])
-  const [kind, setKind] = useState("")
-  const [text, setText] = useState("")
-  const author = "Isaac Sanchez"
-
-  const addNote = (event: React.FormEvent) => {
-    event.preventDefault()
-    setNotes((current) => [...current, { kind, text: text.trim(), author }])
-    setKind("")
-    setText("")
-  }
-
-  return (
-    <section className="flex flex-col gap-3">
-      <div className="flex items-baseline justify-between gap-2">
-        <h4 className="text-sm font-semibold">Feedback on this element</h4>
-        <span className="text-xs text-muted-foreground">
-          {notes.length === 0
-            ? "no notes"
-            : `${notes.length} ${notes.length === 1 ? "note" : "notes"}`}
-        </span>
-      </div>
-
-      {notes.length === 0 ? (
-        <p className="text-muted-foreground">
-          Nothing yet. The first note starts the thread.
-        </p>
-      ) : (
-        <ul className="flex flex-col gap-2">
-          {notes.map((note, index) => (
-            <li key={index} className="rounded-md border p-3">
-              <div className="mb-1 flex items-center gap-2">
-                <Badge variant="secondary">{note.kind}</Badge>
-                <span className="text-xs text-muted-foreground">
-                  {note.author}
-                </span>
-              </div>
-              <p className="whitespace-pre-wrap">{note.text}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <form onSubmit={addNote} className="flex flex-col gap-3">
-        <NativeSelect
-          aria-label="Kind of note"
-          value={kind}
-          onChange={(event) => setKind(event.target.value)}
-          className="w-fit"
-        >
-          <NativeSelectOption value="" disabled>
-            Choose a kind
-          </NativeSelectOption>
-          {NOTE_KINDS.map((option) => (
-            <NativeSelectOption key={option} value={option}>
-              {option}
-            </NativeSelectOption>
-          ))}
-        </NativeSelect>
-        <p className="text-xs text-muted-foreground">as {author}</p>
-        <Textarea
-          aria-label="Note"
-          placeholder="What is wrong, unclear, right, or worth adding?"
-          value={text}
-          onChange={(event) => setText(event.target.value)}
-        />
-        <div className="flex items-center justify-between gap-3">
-          <span className="truncate text-xs text-muted-foreground">
-            {detail.stepId} {detail.title}
-          </span>
-          <Button type="submit" disabled={!kind || !text.trim()}>
-            Add note
-          </Button>
-        </div>
-      </form>
-    </section>
   )
 }

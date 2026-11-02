@@ -47,6 +47,7 @@ export type Chapter = {
 
 export type Course = {
   id: string
+  /** May contain "{persona}", filled with the selected persona when shown. */
   title: string
   description: string
   icon: LucideIcon
@@ -119,7 +120,7 @@ export const categories: Category[] = [
       },
       {
         id: "agent-role",
-        title: "Your Role as an Agent",
+        title: "Your Role as {persona}",
         description:
           "What an Agent owns from the first call to close-out, and how your work is reviewed.",
         icon: UserRoundIcon,

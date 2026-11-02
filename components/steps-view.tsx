@@ -24,6 +24,9 @@ import {
 import type { FlowPhase } from "@/lib/legacy-process-flow"
 import { cn } from "@/lib/utils"
 
+// The filter bar is hidden for now; set to true to bring it back.
+const SHOW_FILTERS = false
+
 // The process as a list of steps grouped by phase. Opening a step slides in
 // its detail.
 export function StepsView({ phases }: { phases: FlowPhase[] }) {
@@ -51,14 +54,16 @@ export function StepsView({ phases }: { phases: FlowPhase[] }) {
 
   return (
     <>
-      <section className="bg-base-secondary px-4 pt-4 pb-8 text-base-secondary-foreground">
-        <FlowToolbar
-          phases={phases}
-          filters={filters}
-          onFiltersChange={setFilters}
-          showSummary={false}
-        />
-      </section>
+      {SHOW_FILTERS && (
+        <section className="bg-base-secondary px-4 pb-8 text-base-secondary-foreground">
+          <FlowToolbar
+            phases={phases}
+            filters={filters}
+            onFiltersChange={setFilters}
+            showSummary={false}
+          />
+        </section>
+      )}
       <Separator />
       <div className="flex flex-col gap-4 p-4 pt-8 pb-12">
         <div className="flex flex-wrap items-end justify-between gap-4">

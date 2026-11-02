@@ -9,6 +9,7 @@ import { notFound } from "next/navigation"
 
 import { AppSidebar } from "@/components/app-sidebar"
 import { ModeToggle } from "@/components/mode-toggle"
+import { PersonaText } from "@/components/persona-text"
 import { PersonaSelect } from "@/components/persona-select"
 import { UserMenu } from "@/components/user-menu"
 import { Badge } from "@/components/ui/badge"
@@ -90,7 +91,7 @@ export default async function Page({
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink href={`/guides/${category.id}/${course.id}`}>
-                    {course.title}
+                    <PersonaText text={course.title} />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -124,7 +125,7 @@ export default async function Page({
               </Badge>
               <Badge variant="secondary" className="bg-card">
                 <BookOpenIcon data-icon="inline-start" />
-                {course.title}
+                <PersonaText text={course.title} />
               </Badge>
               <Badge className="bg-primary/10 text-primary">
                 {category.title}
@@ -153,9 +154,9 @@ export default async function Page({
               </h2>
               <p className="leading-relaxed">
                 {item.title} is part of {chapter.title.toLowerCase()} in the{" "}
-                {course.title} course. This placeholder will describe what the
-                video covers, who it&apos;s for, and what to do before moving on
-                to the next item.
+                <PersonaText text={course.title} /> course. This placeholder
+                will describe what the video covers, who it&apos;s for, and what
+                to do before moving on to the next item.
               </p>
               <p className="leading-relaxed text-muted-foreground">
                 Add the real summary, key points and links to related forms or

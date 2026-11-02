@@ -48,7 +48,7 @@ export default function Page() {
           </div>
         </header>
         <div className="flex flex-1 flex-col">
-          <section className="flex flex-col gap-1 bg-base-secondary px-4 pt-4 text-base-secondary-foreground">
+          <section className="flex flex-col gap-1 bg-base-secondary px-4 pt-4 pb-8 text-base-secondary-foreground">
             <h1 className="text-3xl font-semibold tracking-tight">
               Process Breakdown
             </h1>

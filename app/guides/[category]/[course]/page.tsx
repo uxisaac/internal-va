@@ -8,6 +8,7 @@ import { notFound } from "next/navigation"
 
 import { AppSidebar } from "@/components/app-sidebar"
 import { ModeToggle } from "@/components/mode-toggle"
+import { PersonaText } from "@/components/persona-text"
 import { PersonaSelect } from "@/components/persona-select"
 import { UserMenu } from "@/components/user-menu"
 import {
@@ -85,7 +86,9 @@ export default async function Page({
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>{course.title}</BreadcrumbPage>
+                  <BreadcrumbPage>
+                    <PersonaText text={course.title} />
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -100,7 +103,7 @@ export default async function Page({
           <section className="flex items-start justify-between gap-8 bg-base-secondary px-4 pt-4 pb-8 text-base-secondary-foreground">
             <div className="flex max-w-3xl flex-col gap-3">
               <h1 className="text-3xl font-semibold tracking-tight">
-                {course.title}
+                <PersonaText text={course.title} />
               </h1>
               <p className="text-muted-foreground">{course.description}</p>
               <div className="flex flex-wrap gap-2 [&_[data-slot=badge]]:h-7 [&_[data-slot=badge]]:px-3 [&_[data-slot=badge]]:text-sm">

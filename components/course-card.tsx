@@ -1,4 +1,5 @@
 import { Separator } from "@/components/ui/separator"
+import { PersonaText } from "@/components/persona-text"
 import type { Category, Course } from "@/lib/guides"
 import { courseHref, lessonsOf, minutesOf } from "@/lib/guides"
 
@@ -20,7 +21,9 @@ export function CourseCard({
       {/* flex-1 keeps the rule and link level across a row of cards. */}
       <div className="flex flex-1 items-start gap-6">
         <div className="flex flex-1 flex-col gap-2">
-          <h3 className="text-lg font-semibold">{course.title}</h3>
+          <h3 className="text-lg font-semibold">
+            <PersonaText text={course.title} />
+          </h3>
           <p className="leading-relaxed text-muted-foreground">
             {course.description}
           </p>
