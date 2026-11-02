@@ -7,6 +7,7 @@ import {
   UserIcon,
 } from "lucide-react"
 
+import { usePersonaLabel } from "@/components/persona-select"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -22,11 +23,13 @@ import {
 // Placeholder until there is real sign-in.
 const user = {
   name: "Isaac Sanchez",
-  role: "Collaborator",
   initials: "IS",
 }
 
 export function UserMenu() {
+  // The role shown under the name follows the Persona dropdown.
+  const role = usePersonaLabel()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -47,7 +50,7 @@ export function UserMenu() {
               {user.name}
             </span>
             <span className="text-xs font-normal text-muted-foreground">
-              {user.role}
+              {role}
             </span>
           </DropdownMenuLabel>
         </DropdownMenuGroup>
