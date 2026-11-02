@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { AppSidebar } from "@/components/app-sidebar"
 import { FormsIndex } from "@/components/forms-index"
 import { ModeToggle } from "@/components/mode-toggle"
+import { PersonaSelect } from "@/components/persona-select"
 import { RolesView } from "@/components/roles-view"
 import { UserMenu } from "@/components/user-menu"
 import {
@@ -64,7 +65,8 @@ export default async function Page({
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <div className="ml-auto flex items-center gap-1 px-4">
+          <div className="ml-auto flex items-center gap-2 px-4">
+            <PersonaSelect />
             <ModeToggle />
             <UserMenu />
           </div>

@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import { ModeToggle } from "@/components/mode-toggle"
+import { PersonaSelect } from "@/components/persona-select"
 import { UserMenu } from "@/components/user-menu"
 import {
   Breadcrumb,
@@ -49,7 +50,8 @@ export default function Page() {
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <div className="ml-auto flex items-center gap-1 px-4">
+          <div className="ml-auto flex items-center gap-2 px-4">
+            <PersonaSelect />
             <ModeToggle />
             <UserMenu />
           </div>
